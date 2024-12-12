@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise</title>
+    <style>
+        div {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Sun Rise Hotel</h2>
+    <p>Reservation Form</p>
+
+    <form action="/">
+        <div>
+            <label for="lName">Last Name:</label>
+            <input type="text" name="lastName">
+        </div>
+
+        <div>
+            <label for="fName">First Name:</label>
+            <input type="text" name="firstName">
+        </div>
+
+        <fieldset>
+            <legend>Reservation</legend>
+            <div>
+                <input type="radio" name="reservation" checked>
+                <label for="suite">Suite</label>
+            </div>
+            <div>
+                <input type="radio" name="reservation">
+                <label for="doubleRoom">Double Room</label>
+            </div>
+            <div>
+                <input type="radio" name="reservation">
+                <label for="singleRoom">Single Room</label>
+            </div>
+        </fieldset>
+
+        <div>
+            <label>Arriving On:</label>
+            <select name="ArrivingOn">
+                <option value="1">Sunday</option>
+                <option value="2">Monday</option>
+                <option value="3">Tuesday</option>
+                <option value="4">Wednesday</option>
+                <option value="5">Thursday</option>
+                <option value="6">Friday</option>
+                <option value="7">Saturday</option>
+            </select>
+        </div>
+        <div>
+            <label>Number of days</label>
+            <input type="number" name="numberOfDays">
+        </div>
+        <div>
+            <label>Services</label>
+            <div>
+                <input type="checkbox" name="breakfast">
+                <label>Breakfast</label>
+            </div>
+            <div>
+                <input type="checkbox" name="parking">
+                <label>Parking</label>
+            </div>
+            <div>
+                <input type="checkbox" name="laundry">
+                <label>Laundry</label>
+            </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+
+</html>

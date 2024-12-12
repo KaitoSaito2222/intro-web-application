@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HTML Heading</title>
+</head>
+
+<body>
+
+    <h1>Country: Canada</h1>
+    <h2>State: BC</h2>
+    <h3>City: Vancouver</h3>
+    <h4>h4</h4>
+    <h5>h5</h5>
+    <h6>h6</h6>
+
+    <p style="color:red">Red text</p>
+    <p style="color:blue">blue text</p>
+
+    <p style="font-size: 50px;">Big text</p>
+    <p style="font-size:80px;">Bigger text</p>
+    <p style="font-size:80px; color: yellow;">yellow text</p>
+
+    <p>Hello My Class Mates</p>
+    <p>Hello My <span style="color: blue;">Class<br /></span> Mates</p>
+    <p><span style="color: blue;">Hello</span>
+        <span style="color: red;">My</span>
+        <span style="color: green;">Class</span>
+        <span style="color: blue;">Mates</span>
+    </p>
+
+    <h2>My Favorite Fruits</h2>
+    <ul>
+        <li>Banana</li>
+        <li>Apple</li>
+        <li>Orange</li>
+    </ul>
+    <h2>To Do List</h2>
+    <ol>
+        <li>Grocery Shopping</li>
+        <li>Gym</li>
+        <li>Movie</li>
+    </ol>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Quality</th>
+            <th>Quantity</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Rice</td>
+            <td>Good</td>
+            <td>250 Bags</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Sugar</td>
+            <td>Good</td>
+            <td>200 Bags</td>
+        </tr>
+    </table>
+
+    <h3>extra assignment</h3>
+    <input id="input1" name="name" value="" oninput="changeEvent(this.value)"><br />
+    <p>google search</p>
+    <p>amazon search</p>
+    <p>text search</p>
+
+    <script>
+        const changeEvent = (val) => {
+            let pElements = Array.from(document.getElementsByTagName('p'));
+            pElements.forEach(p => {
+                let innerHTML = p.innerHTML;
+                let index = innerHTML.indexOf(val);
+                if (index !== -1) {
+                    innerHTML = innerHTML.substring(0, index) + "<span style='background-color: yellow;'>" + innerHTML.substring(index, index + val.length) + "</span>" + innerHTML.substring(index + val.length);
+                    p.innerHTML = innerHTML;
+                } else {
+                    p.innerHTML = p.innerText;
+                }
+            });
+
+
+
+        }
+
+    </script>
+</body>
+
+</html>

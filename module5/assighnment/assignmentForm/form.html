@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>assignmentForm</title>
+    <script>
+        function validateCheck() {
+            const firstName = document.forms["myForm"]["firstName"].value;
+            const lastName = document.forms["myForm"]["lastName"].value;
+            if (firstName === "" || lastName === "") {
+                alert("Please fill out the form");
+                return false;
+            }
+
+            let isValidate = false;
+            if (firstName.length < 6) {
+                document.getElementById("firstNameError").style.visibility = "visible";
+                isValidate = true;
+            }
+            if (lastName.length < 6) {
+                document.getElementById("lastNameError").style.visibility = "visible";
+                isValidate = true;
+            }
+            return isValidate ? false : true;
+        }
+    </script>
+    <style>
+        p {
+            margin: 0;
+            visibility: hidden;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="myForm" onsubmit="return validateCheck()">
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName">
+            <p id="firstNameError">firstName must put in at least 6 characters
+            </p>
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName">
+            <p id="lastNameError">lastName must put in at least 6 characters</p>
+        </div>
+        <input type="submit" value="Submit">
+
+    </form>
+</body>
+
+</html>

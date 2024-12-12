@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task3</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        div {
+            margin: 10px;
+        }
+
+        input:invalid,
+        textarea:invalid,
+        select:invalid {
+            background-color: red;
+            border: 4px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Sun Rise Hotel</h2>
+    <p>Reservation Form</p>
+
+    <form action="/">
+        <div>
+            <label for="lName">Last Name:</label>
+            <input type="text" id="lName" name="lastName" required>
+        </div>
+
+        <div>
+            <label for="fName">First Name:</label>
+            <input type="text" id="fName" name="firstName" required>
+        </div>
+
+        <div>
+            <label for="guestName">Guest Name:</label>
+            <input type="text" id="guestName" name="guestName" required pattern="[A-Za-z]{3,35}">
+        </div>
+
+        <fieldset>
+            <legend>Reservation</legend>
+            <div>
+                <input type="radio" id="suite" name="reservation" checked required>
+                <label for="suite">Suite</label>
+            </div>
+            <div>
+                <input type="radio" id="doubleRoom" name="reservation" required>
+                <label for="doubleRoom">Double Room</label>
+            </div>
+            <div>
+                <input type="radio" id="singleRoom" name="reservation" required>
+                <label for="singleRoom">Single Room</label>
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            <label for="phoneNo">Phone number in the format (123) - 456 - 7890:</label>
+            <input id="phoneNo" name="tel1" type="tel" pattern="[0-9]{3}" placeholder="###" size="3" required />
+            <input name="tel2" type="tel" pattern="[0-9]{3}" placeholder="###" size="3" required />
+            <input name="tel3" type="tel" pattern="[0-9]{4}" placeholder="####" size="4" required />
+        </div>
+
+        <div>
+            <label for="arrivingOn">Arriving On:</label>
+            <select id="arrivingOn" name="ArrivingOn" required>
+                <option value="1">Sunday</option>
+                <option value="2">Monday</option>
+                <option value="3">Tuesday</option>
+                <option value="4">Wednesday</option>
+                <option value="5">Thursday</option>
+                <option value="6">Friday</option>
+                <option value="7">Saturday</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" pattern="[a-z]+@[a-z.]" required>
+        </div>
+        <div>
+            <label for="numberOfDays">Number of days:</label>
+            <input type="number" id="numberOfDays" name="numberOfDays" required>
+        </div>
+        <div>
+            <label>Services:</label>
+            <div>
+                <label for="breakfast">Breakfast</label>
+                <input type="checkbox" id="breakfast" name="breakfast">
+            </div>
+            <div>
+                <label for="parking">Parking</label>
+                <input type="checkbox" id="parking" name="parking">
+            </div>
+            <div>
+                <label for="laundry">Laundry</label>
+                <input type="checkbox" id="laundry" name="laundry">
+            </div>
+        </div>
+        <div>
+            <label for="arrivalDateAndTime">Arrival Date and Time:</label>
+            <input type="date" id="arrivalDateAndTime" required>
+            <input type="time" id="arrivalDateAndTime" name="arrivalDateAndTime" required>
+        </div>
+        <div>
+            <label for="passportOrId">passport or ID:</label>
+            <input type="file" id="passportOrId" name="passportOrId" required>
+        </div>
+        <div>
+            <label for="numberOfDays">Number of Days:</label>
+            <input type="number" id="numberOfDays" name="numberOfDays" required>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="comments">Reservation Comments:</label>
+            <div>
+                <textarea id="comments" name="comments" rows="5" cols="50" required></textarea>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 4rem;">
+            <input type="reset" value="Reset">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+
+
+</body>
+
+</html>

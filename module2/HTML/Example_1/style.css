@@ -1,0 +1,48 @@
+/* CSS styles for the page background */
+body {
+    background-color: lightgreen;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: #333;
+}
+
+/* CSS styles for the headings */
+.heading-style {
+    font-family: 'Times New Roman', Times, serif; /* Set the font for headings to Times New Roman */
+    color: #0073e6;
+}
+
+/* CSS styles for the image */
+.image-style {
+    display: block;
+    margin: 0 auto;
+    border: 2px solid #0073e6;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+/* CSS styles for the list */
+.list-style {
+    list-style-type: square;
+    padding: 10px;
+    font-size: 18px; /* Red font size for the list */
+    color: red; /* Red font color for the list */
+}
+
+/* CSS styles for the table */
+.table-style {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px auto;
+}
+
+.table-style th, .table-style td {
+    border: 1px solid #333;
+    padding: 8px;
+    color: blue; /* Blue font color for the table */
+}
+
+.table-style th {
+    background-color: #333;
+    color: #fff;
+}

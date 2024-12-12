@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formAssignment</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .terms-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .terms-container label {
+            margin-bottom: 0;
+            margin-left: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 2px solid;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        input[type="submit"]:active {
+            transform: scale(0.9);
+        }
+
+        .error {
+            color: red;
+            visibility: hidden;
+        }
+
+        .selectBox {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .gender-option label {
+            margin-bottom: 0;
+            margin-left: 2px;
+        }
+
+        .valid {
+            border-color: green !important;
+        }
+
+        .invalid {
+            border-color: red !important;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .power-container {
+            background-color: #2E424D;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .power-container #power-point {
+            background-color: #D73F40;
+            width: 0%;
+            height: 100%;
+            border-radius: 5px;
+            transition: 0.5s;
+        }
+
+        .submit-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .option-default-text {
+            color: grey;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // nameCheck
+            function validateName() {
+                const nameElem = document.getElementById('name');
+                const nameErrorElem = document.getElementById('nameError');
+                if (nameElem.value === '') {
+                    nameError.textContent = 'Name is required';
+                    nameError.style.visibility = 'visible';
+                    nameElem.classList.add('invalid');
+                    nameElem.classList.remove('valid');
+                    return false;
+                } else {
+                    nameError.textContent = '';
+                    nameError.style.visibility = 'hidden';
+                    nameElem.classList.add('valid');
+                    nameElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            // emailCheck
+            function validateEmail() {
+                const emailElem = document.getElementById('email');
+                const emailErrorElem = document.getElementById('emailError');
+                const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+                if (!emailPattern.test(emailElem.value)) {
+                    emailErrorElem.textContent = 'Please enter a valid email address';
+                    emailErrorElem.style.visibility = 'visible';
+                    emailElem.classList.add('invalid');
+                    emailElem.classList.remove('valid');
+                    return false;
+                } else {
+                    emailErrorElem.textContent = '';
+                    emailErrorElem.style.visibility = 'hidden';
+                    emailElem.classList.add('valid');
+                    emailElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            // Validate Password
+            function validatePassword() {
+                const passwordElem = document.getElementById('password');
+                const passwordErrorElem = document.getElementById('passwordError');
+                const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+                if (!passwordPattern.test(passwordElem.value)) {
+                    passwordErrorElem.textContent = 'Password must contain at least one number, one uppercase letter, one lowercase letter, and at least 8 or more characters';
+                    passwordErrorElem.style.visibility = 'visible';
+                    passwordElem.classList.add('invalid');
+                    passwordElem.classList.remove('valid');
+                    return false;
+                } else {
+                    passwordErrorElem.textContent = '';
+                    passwordErrorElem.style.visibility = 'hidden';
+                    passwordElem.classList.add('valid');
+                    passwordElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            // validate Address
+            function validateAddress() {
+                const addressElem = document.getElementById('address');
+                const addressErrorElem = document.getElementById('addressError');
+                if (addressElem.value === '') {
+                    addressErrorElem.textContent = 'Address is required';
+                    addressErrorElem.style.visibility = 'visible';
+                    addressElem.classList.add('invalid');
+                    addressElem.classList.remove('valid');
+                    return false;
+                } else {
+                    addressErrorElem.textContent = '';
+                    addressErrorElem.style.visibility = 'hidden';
+                    addressElem.classList.add('valid');
+                    addressElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            // Validate Phone Number
+            function validatePhoneNumber() {
+                const phoneNumberElem = document.getElementById('phoneNumber');
+                const phoneErrorElem = document.getElementById('phoneNumberError');
+                const phonePattern = /^\d+$/;
+                if (!phonePattern.test(phoneNumberElem.value)) {
+                    phoneErrorElem.textContent = 'Phone number must contain only digits';
+                    phoneErrorElem.style.visibility = 'visible';
+                    phoneNumberElem.classList.add('invalid');
+                    phoneNumberElem.classList.remove('valid');
+                    return false;
+                } else {
+                    phoneErrorElem.textContent = '';
+                    phoneErrorElem.style.visibility = 'hidden';
+                    phoneNumberElem.classList.add('valid');
+                    phoneNumberElem.classList.remove('invalid');
+                    return true;
+                }
+
+            }
+
+            function validateDateOfBirth() {
+                const dateOfBirthElem = document.getElementById('dateOfBirth');
+                const dateOfBirthErrorElem = document.getElementById('dateOfBirthError');
+                if (dateOfBirthElem.value === '') {
+                    dateOfBirthErrorElem.textContent = 'Date of Birth is required';
+                    dateOfBirthErrorElem.style.visibility = 'visible';
+                    dateOfBirthElem.classList.add('invalid');
+                    dateOfBirthElem.classList.remove('valid');
+                    return false;
+                } else {
+                    dateOfBirthErrorElem.textContent = '';
+                    dateOfBirthErrorElem.style.visibility = 'hidden';
+                    dateOfBirthElem.classList.add('valid');
+                    dateOfBirthElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            function validateGender() {
+                const genderElems = document.querySelectorAll('input[name="gender"]');
+                const genderErrorElem = document.getElementById('genderError');
+                let isChecked = false;
+                genderElems.forEach(elem => {
+                    if (elem.checked) {
+                        isChecked = true;
+                    }
+                });
+                if (!isChecked) {
+                    genderErrorElem.textContent = "Gender is required";
+                    genderErrorElem.style.visibility = 'visible';
+                    return false;
+                } else {
+                    genderErrorElem.textContent = '';
+                    genderErrorElem.style.visibility = 'hidden';
+                    return true;
+                }
+            }
+
+            function validateCountry() {
+                const countryElem = document.getElementById('country');
+                const countryErrorElem = document.getElementById('countryError');
+                if (!countryElem.value) {
+                    countryErrorElem.textContent = "Country is required";
+                    countryErrorElem.style.visibility = 'visible';
+                    countryElem.classList.add('invalid');
+                    countryElem.classList.remove('valid');
+                    return false;
+                } else {
+                    countryErrorElem.textContent = '';
+                    countryErrorElem.style.visibility = 'hidden';
+                    countryElem.classList.add('valid');
+                    countryElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            function validateEmployee() {
+                const employeeElem = document.getElementById('employee');
+                const employeeErrorElem = document.getElementById('employeeError');
+                if (!employeeElem.value) {
+                    employeeErrorElem.textContent = "Employment status is required";
+                    employeeErrorElem.style.visibility = 'visible';
+                    employeeElem.classList.add('invalid');
+                    employeeElem.classList.remove('valid');
+                    return false;
+                } else {
+                    employeeErrorElem.textContent = '';
+                    employeeErrorElem.style.visibility = 'hidden';
+                    employeeElem.classList.add('valid');
+                    employeeElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            function validateJobTitle() {
+                const jobTitleElem = document.getElementById('jobTitle');
+                const jobTitleErrorElem = document.getElementById('jobTitleError');
+                if (jobTitleElem.value === '') {
+                    jobTitleErrorElem.textContent = 'Job Title is required';
+                    jobTitleErrorElem.style.visibility = 'visible';
+                    jobTitleElem.classList.add('invalid');
+                    jobTitleElem.classList.remove('valid');
+                    return false;
+                } else {
+                    jobTitleErrorElem.textContent = '';
+                    jobTitleErrorElem.style.visibility = 'hidden';
+                    jobTitleElem.classList.add('valid');
+                    jobTitleElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            function validateCompanyName() {
+                const companyNameElem = document.getElementById('companyName');
+                const companyNameErrorElem = document.getElementById('companyNameError');
+                if (companyNameElem.value === '') {
+                    companyNameErrorElem.textContent = 'Company Name is required';
+                    companyNameErrorElem.style.visibility = 'visible';
+                    companyNameElem.classList.add('invalid');
+                    companyNameElem.classList.remove('valid');
+                    return false;
+                } else {
+                    companyNameErrorElem.textContent = '';
+                    companyNameErrorElem.style.visibility = 'hidden';
+                    companyNameElem.classList.add('valid');
+                    companyNameElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            function validateYearsExperience() {
+                const yearsExperienceElem = document.getElementById('yearsExperience');
+                const yearsExperienceErrorElem = document.getElementById('yearsExperienceError');
+                if (yearsExperienceElem.value === '') {
+                    yearsExperienceErrorElem.textContent = 'Years of Experience is required';
+                    yearsExperienceErrorElem.style.visibility = 'visible';
+                    yearsExperienceElem.classList.add('invalid');
+                    yearsExperienceElem.classList.remove('valid');
+                    return false;
+                } else {
+                    yearsExperienceErrorElem.textContent = '';
+                    yearsExperienceErrorElem.style.visibility = 'hidden';
+                    yearsExperienceElem.classList.add('valid');
+                    yearsExperienceElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            function validateEducationDetails() {
+                const educationDetailsElem = document.getElementById('educationDetails');
+                const educationDetailsErrorElem = document.getElementById('educationDetailsError');
+                if (educationDetailsElem.value === '') {
+                    educationDetailsErrorElem.textContent = 'Education Details is required';
+                    educationDetailsErrorElem.style.visibility = 'visible';
+                    educationDetailsElem.classList.add('invalid');
+                    educationDetailsElem.classList.remove('valid');
+                    return false;
+                } else {
+                    educationDetailsErrorElem.textContent = '';
+                    educationDetailsErrorElem.style.visibility = 'hidden';
+                    educationDetailsElem.classList.add('valid');
+                    educationDetailsElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            function validateTerms() {
+                const termsElem = document.getElementById('terms');
+                const termsErrorElem = document.getElementById('termsError');
+                if (!termsElem.checked) {
+                    termsErrorElem.textContent = 'You must agree to the terms and conditions';
+                    termsErrorElem.style.visibility = 'visible';
+                    termsElem.classList.add('invalid');
+                    termsElem.classList.remove('valid');
+                    return false;
+                } else {
+                    termsErrorElem.textContent = '';
+                    termsErrorElem.style.visibility = 'hidden';
+                    termsElem.classList.add('valid');
+                    termsElem.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            function validateCheck(e) {
+                let isValid = true;
+                isValid = validateName() && isValid;
+                isValid = validateEmail() && isValid;
+                isValid = validatePassword() && isValid;
+                isValid = validatePhoneNumber() && isValid;
+                isValid = validateAddress() && isValid;
+                isValid = validateDateOfBirth() && isValid;
+                isValid = validateGender() && isValid;
+                isValid = validateCountry() && isValid;
+                isValid = validateEmployee() && isValid;
+                if (document.getElementById('employee').value === 'yes') {
+                    isValid = validateJobTitle() && isValid;
+                    isValid = validateCompanyName() && isValid;
+                    isValid = validateYearsExperience() && isValid;
+                } else {
+                    isValid = validateEducationDetails() && isValid;
+                }
+                isValid = validateTerms() && isValid;
+
+                if (!isValid) {
+                    e.preventDefault();
+                } else {
+                    e.target.submit();
+                }
+            }
+
+            // show Employee Info
+            function showAdditionalInfo() {
+                const employmentStatus = document.getElementById('employee').value;
+                const jobFields = document.getElementById('jobFields');
+                const educationField = document.getElementById('educationField');
+
+                if (employmentStatus === 'yes') {
+                    jobFields.classList.remove('hidden');
+                    educationField.classList.add('hidden');
+                } else {
+                    jobFields.classList.add('hidden');
+                    educationField.classList.remove('hidden');
+                }
+            }
+
+            // addEventListener
+            document.getElementById('name').addEventListener('input', validateName);
+            document.getElementById('email').addEventListener('input', validateEmail);
+            document.getElementById('password').addEventListener('input', validatePassword);
+            document.getElementById('phoneNumber').addEventListener('input', validatePhoneNumber);
+            document.getElementById('address').addEventListener('input', validateAddress);
+            document.getElementById('dateOfBirth').addEventListener('input', validateDateOfBirth);
+            document.querySelectorAll('input[name="gender"]').forEach(radio => {
+                radio.addEventListener('change', validateGender);
+            });
+            document.getElementById('country').addEventListener('input', validateCountry);
+            document.getElementById('employee').addEventListener('input', validateEmployee);
+            document.getElementById('jobTitle').addEventListener('input', validateJobTitle);
+            document.getElementById('companyName').addEventListener('input', validateCompanyName);
+            document.getElementById('yearsExperience').addEventListener('input', validateYearsExperience);
+            document.getElementById('educationDetails').addEventListener('input', validateEducationDetails);
+            document.getElementById('terms').addEventListener('input', validateTerms);
+            document.getElementById('employee').addEventListener('change', showAdditionalInfo);
+            document.querySelector('form').addEventListener('submit', validateCheck);
+
+            // add valid class to input elements
+            const inputElements = document.querySelectorAll('input, textarea, select');
+            inputElements.forEach(element => {
+                element.classList.add('invalid');
+            });
+
+            // password strength
+            let password = document.getElementById("password");
+            let power = document.getElementById("power-point");
+            password.oninput = function () {
+                let point = 0;
+                let value = password.value;
+                let widthPower = ["0%", "33%", "66%", "100%"];
+                let colorPower = ["#D73F40", "#DC6551", "#F2B84F", "#BDE952", "#3ba62f"];
+
+                if (value.length >= 6) {
+                    let arrayTest = [/[0-9]/, /[a-z]/, /[A-Z]/];
+                    arrayTest.forEach((item) => {
+                        if (item.test(value)) {
+                            point += 1;
+                        }
+                    });
+                }
+                power.style.width = widthPower[point];
+                power.style.backgroundColor = colorPower[point];
+            };
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Registration Form</h2>
+        <form>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+                <p id="nameError" class="error"></p>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" />
+                <p id="emailError" class="error"></p>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" />
+                <p id="passwordError" class="error"></p>
+                <div class="power-container">
+                    <div id="power-point"></div>
+                </div>
+            </div>
+            <div>
+                <label for="address">Address:</label>
+                <textarea id="address" name="address"></textarea>
+                <p id="addressError" class="error"></p>
+            </div>
+            <div>
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber">
+                <p id="phoneNumberError" class="error"></p>
+            </div>
+            <div>
+                <label for="dateOfBirth">Date Of Birth:</label>
+                <input type="date" id="dateOfBirth" name="dateOfBirth">
+                <p id="dateOfBirthError" class="error"></p>
+            </div>
+            <div>
+                <label>Gender:</label>
+                <div class="selectBox">
+                    <div class="gender-option">
+                        <input type="radio" id="male" name="gender" value="male">
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="other" name="gender" value="other">
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+                <p id="genderError" class="error"></p>
+            </div>
+            <div>
+                <label for="country">Country:</label>
+                <select id="country" name="country">
+                    <option value="" selected disabled class="option-default-text">Select your country</option>
+                    <option value="usa">United States</option>
+                    <option value="canada">Canada</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="australia">Australia</option>
+                    <option value="other">Other</option>
+                </select>
+                <p id="countryError" class="error"></p>
+            </div>
+            <div>
+                <label for="employee">Are you employed:</label>
+                <select id="employee" name="employee">
+                    <option value="" selected disabled class="option-default-text">select are you employed
+                    </option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <p id="employeeError" class="error"></p>
+            </div>
+            <div id="jobFields" class="hidden">
+                <div>
+                    <label for="jobTitle">Job Title:</label>
+                    <input type="text" id="jobTitle" name="jobTitle" />
+                    <p id="jobTitleError" class="error"></p>
+                </div>
+                <div>
+                    <label for="companyName">Company Name:</label>
+                    <input type="text" id="companyName" name="companyName" />
+                    <p id="companyNameError" class="error"></p>
+                </div>
+                <div>
+                    <label for="yearsExperience">Years of Experience:</label>
+                    <input type="number" min="0" id="yearsExperience" name="yearsExperience" />
+                    <p id="yearsExperienceError" class="error"></p>
+                </div>
+            </div>
+            <div id="educationField" class="hidden">
+                <label for="educationDetails">Please provide details about your education:</label>
+                <textarea id="educationDetails" name="educationDetails"></textarea>
+                <p id="educationDetailsError" class="error"></p>
+            </div>
+
+            <div>
+                <div class="terms-container">
+                    <input type="checkbox" id="terms" name="terms">
+                    <label for="terms">I agree to the terms and conditions</label>
+                </div>
+                <p id="termsError" class="error"></p>
+            </div>
+            <div class="submit-container">
+                <input type="submit" value="Submit">
+            </div>
+    </div>
+    </form>
+
+</body>
+
+</html>

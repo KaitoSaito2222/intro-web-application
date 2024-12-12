@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>taxCalculator</title>
+
+    <style>
+        body {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 20px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .result-container {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('taxForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                let salary = parseFloat(document.getElementById('salary').value);
+                let tax = 0;
+                if (salary > 30000) {
+                    tax = salary * 0.2;
+                    salary = salary - tax;
+                } else if (salary > 10000) {
+                    tax = salary * 0.1;
+                    salary = salary - tax;
+                }
+                document.getElementById('tax').textContent = tax;
+                document.getElementById('result').textContent = salary
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Tax Calculator</h1>
+    <form id="taxForm">
+        <label for="salary">Enter your annual salary:</label>
+        <input type="number" id="salary" name="salary" required min="0" step="1">
+        <button type="submit">Calculate Tax</button>
+    </form>
+    <div class="result-container">
+        <h2>Tax:</h2>
+        <h2 id="tax"></h2>
+    </div>
+    <div class="result-container">
+        <h2>Result:</h2>
+        <h2 id="result"></h2>
+    </div>
+
+</body>
+
+</html>

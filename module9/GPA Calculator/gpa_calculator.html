@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gpaCalculator</title>
+    <script>
+        function calculateGpa(event) {
+            event.preventDefault();
+            const subject1 = document.forms["myForm"]["subject1"].value || 0;
+            const subject2 = document.forms["myForm"]["subject2"].value || 0;
+            const subject3 = document.forms["myForm"]["subject3"].value || 0;
+            const subject4 = document.forms["myForm"]["subject4"].value || 0;
+            const subject5 = document.forms["myForm"]["subject5"].value || 0;
+
+            const averageScore = (parseInt(subject1) + parseInt(subject2) + parseInt(subject3) + parseInt(subject4) + parseInt(subject5)) / 5;
+            const { gpa, letter } = calcAverageGpa(averageScore);
+
+            const successMessage = document.getElementById("successMessage");
+            const errorMessage = document.getElementById("errorMessage");
+            if (gpa >= 2.0) {
+                successMessage.style.display = "block";
+                errorMessage.style.display = "none";
+                successMessage.textContent = `Congratulations you passed with ${gpa}(${letter})`;
+            } else {
+                errorMessage.style.display = "block";
+                successMessage.style.display = "none";
+                errorMessage.textContent = `you did not pass with ${gpa}(${letter})`;
+            }
+            document.forms["myForm"]["gpa"].value = `${gpa}(${letter})`;
+        }
+
+        // calculate average gpa
+        function calcAverageGpa(averageScore) {
+            if (averageScore >= 90 && averageScore <= 100) return { gpa: 4.0, letter: 'A' };
+            if (averageScore >= 80 && averageScore < 90) return { gpa: 3.0, letter: 'B' };
+            if (averageScore >= 70 && averageScore < 80) return { gpa: 2.0, letter: 'C' };
+            if (averageScore >= 60 && averageScore < 70) return { gpa: 1.0, letter: 'D' };
+            if (averageScore < 60) return { gpa: 0.0, letter: 'F' };
+        }
+    </script>
+    <style>
+        div {
+            margin: 0;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .inputLabel {
+            display: inline-block;
+            width: 120px;
+        }
+
+        .formLabel {
+            display: inline-block;
+            width: 80px;
+        }
+
+        .score {
+            width: 40px;
+        }
+
+        .submitContainer {
+            margin: 10px;
+        }
+
+        #successMessage {
+            color: green;
+            display: none;
+        }
+
+        #errorMessage {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="myForm" onsubmit="calculateGpa(event)">
+        <div>
+            <label for="subject1" class="formLabel">Subject1</label>
+            <input type="number" id="subject1" name="subject1" class="score" max="100" min="0">
+        </div>
+        <div>
+            <label for="subject2" class="formLabel">Subject2</label>
+            <input type="number" id="subject2" name="subject2" class="score" max="100" min="0">
+        </div>
+        <div>
+            <label for="subject3" class="formLabel">Subject3</label>
+            <input type="number" id="subject3" name="subject3" class="score" max="100" min="0">
+        </div>
+        <div>
+            <label for="subject4" class="formLabel">Subject4</label>
+            <input type="number" id="subject4" name="subject4" class="score" max="100" min="0">
+        </div>
+        <div>
+            <label for="subject5" class="formLabel">Subject5</label>
+            <input type="number" id="subject5" name="subject5" class="score" max="100" min="0">
+        </div>
+        <div class="submitContainer">
+            <input type="submit" value="Calculate GPA">
+            <input type="text" id="gpa" class="score" disabled>
+        </div>
+    </form>
+
+    <p id="successMessage" class="success"></p>
+    <p id="errorMessage" class="error"></p>
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timerAssignment</title>
+    <script>
+        let timerInterval;
+        let totalSeconds;
+        let isRunning = false;
+        let isPaused = false;
+
+        function start() {
+            if (!isRunning && !isPaused) {
+                const hours = parseInt(document.getElementById('hours').value || '00');
+                const minutes = parseInt(document.getElementById('minutes').value || '00');
+                const seconds = parseInt(document.getElementById('seconds').value || '00');
+                totalSeconds = hours * 3600 + minutes * 60 + seconds;
+            }
+
+            clearInterval(timerInterval);
+            isRunning = true;
+            isPaused = false;
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    isPaused = false;
+                } else {
+                    totalSeconds--;
+                    const hrs = Math.floor(totalSeconds / 3600);
+                    const mins = Math.floor((totalSeconds % 3600) / 60);
+                    const secs = totalSeconds % 60;
+                    document.getElementById('timer').textContent = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function stop() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            isPaused = true;
+        }
+
+        function reset() {
+            clearInterval(timerInterval);
+            document.getElementById('hours').value = 0;
+            document.getElementById('minutes').value = 0;
+            document.getElementById('seconds').value = 0;
+            document.getElementById('timer').textContent = "00:00:00";
+            isRunning = false;
+            isPaused = false;
+        }
+
+        function validateInput() {
+            const hoursInput = document.getElementById('hours');
+            const minutesInput = document.getElementById('minutes');
+            const secondsInput = document.getElementById('seconds');
+
+            const hours = parseInt(document.getElementById('hours').value);
+            const minutes = parseInt(document.getElementById('minutes').value);
+            const seconds = parseInt(document.getElementById('seconds').value);
+
+            const isHoursValid = !isNaN(hours) && hours >= 0 && hours < 60;
+            const isMinutesValid = !isNaN(minutes) && minutes >= 0 && minutes < 60;
+            const isSecondsValid = !isNaN(seconds) && seconds >= 0 && seconds < 60;
+
+            hoursInput.style.borderColor = isHoursValid ? '#ccc' : 'red';
+            minutesInput.style.borderColor = isMinutesValid ? '#ccc' : 'red';
+            secondsInput.style.borderColor = isSecondsValid ? '#ccc' : 'red';
+
+            const isAllValid = isHoursValid && isMinutesValid && isSecondsValid;
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.disabled = !isAllValid;
+            });
+
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.style.display = isAllValid ? 'none' : 'block';
+
+        }
+
+    </script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        #timer {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #errorMessage {
+            color: red;
+            display: none;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="input-container">
+        <input type="number" id="hours" placeholder="hours" step="1" onchange="validateInput()"
+            oninput="validateInput()">
+        <input type="number" id="minutes" placeholder="minutes" step="1" onchange="validateInput()"
+            oninput="validateInput()">
+        <input type="number" id="seconds" placeholder="seconds" step="1" onchange="validateInput()"
+            oninput="validateInput()">
+        <button onclick="start()">Start</button>
+        <button onclick="stop()">Stop</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+
+    <div id="errorMessage">Please enter values between 0 and 60 for each field</div>
+
+    <div id="timer">00:00:00</div>
+</body>
+
+</html>

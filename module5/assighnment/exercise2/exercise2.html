@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercise2</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        div {
+            margin: 10px;
+        }
+    </style>
+
+    <script>
+        function calculateTotalCost(event) {
+            event.preventDefault();
+            const tax = 15;
+            const selectedRoom = document.querySelector('input[name="reservation"]:checked').id;
+            let roomCost = 0;
+            switch (selectedRoom) {
+                case 'suite':
+                    roomCost = 200;
+                    break;
+                case 'doubleRoom':
+                    roomCost = 120;
+                    break;
+                case 'singleRoom':
+                    roomCost = 80;
+                    break;
+                case 'default':
+                    break
+            }
+            const numberOfDays = document.getElementById('numberOfDays').value;
+            const breakfastCost = document.getElementById('breakfast').checked ? 15 : 0;
+            const parkingCost = document.getElementById('parking').checked ? 10 : 0;
+
+            // Calculate the total cost
+            const reservationCost = (roomCost + breakfastCost + parkingCost) * numberOfDays;
+            const totalCost = reservationCost + (reservationCost * tax / 100);
+            document.getElementById('totalCost').value = totalCost;
+        }
+
+    </script>
+</head>
+
+<body>
+    <h2>Sun Rise Hotel</h2>
+    <p>Reservation Form</p>
+
+    <form>
+        <div>
+            <label for="lName">Last Name:</label>
+            <input type="text" id="lName" name="lastName">
+        </div>
+
+        <div>
+            <label for="fName">First Name:</label>
+            <input type="text" id="fName" name="firstName">
+        </div>
+
+        <fieldset>
+            <legend>Reservation</legend>
+            <div>
+                <input type="radio" id="suite" name="reservation" checked>
+                <label for="suite">Suite</label>
+            </div>
+            <div>
+                <input type="radio" id="doubleRoom" name="reservation">
+                <label for="doubleRoom">Double Room</label>
+            </div>
+            <div>
+                <input type="radio" id="singleRoom" name="reservation">
+                <label for="singleRoom">Single Room</label>
+            </div>
+        </fieldset>
+
+        <div>
+            <label for="arrivingOn">Arriving On:</label>
+            <select id="arrivingOn" name="ArrivingOn">
+                <option value="1">Sunday</option>
+                <option value="2">Monday</option>
+                <option value="3">Tuesday</option>
+                <option value="4">Wednesday</option>
+                <option value="5">Thursday</option>
+                <option value="6">Friday</option>
+                <option value="7">Saturday</option>
+            </select>
+        </div>
+        <div>
+            <label for="numberOfDays">Number of days</label>
+            <input type="number" id="numberOfDays" name="numberOfDays">
+        </div>
+        <div>
+            <label>Services</label>
+            <div>
+                <label for="breakfast">Breakfast</label>
+                <input type="checkbox" id="breakfast" name="breakfast">
+            </div>
+            <div>
+                <label for="parking">Parking</label>
+                <input type="checkbox" id="parking" name="parking">
+            </div>
+            <div>
+                <label for="laundry">Laundry</label>
+                <input type="checkbox" id="laundry" name="laundry">
+            </div>
+        </div>
+
+        <div>
+            <button onclick="calculateTotalCost(event)">Total cost</button>
+            <input type="number" id="totalCost" step="0.01">
+
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+
+</html>

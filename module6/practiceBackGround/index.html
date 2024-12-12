@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function changeColor(color) {
+            document.querySelector("body").style.backgroundColor = color;
+        }
+
+        function resetColor() {
+            document.querySelector("body").style.backgroundColor = "white";
+        }
+
+    </script>
+    <style>
+        .coloer-container {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+
+        .yellow-box {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+        }
+
+        .gray-box {
+            width: 100px;
+            height: 100px;
+            background-color: gray;
+        }
+
+        .green-box {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Change back ground color</h2>
+    <p>mouse over the square</p>
+    <div class="coloer-container">
+        <div class="yellow-box" onmouseover="changeColor('yellow')" onmouseout="resetColor()"></div>
+        <div class="gray-box" onmouseover="changeColor('gray')" onmouseout="resetColor()"></div>
+        <div class="green-box" onmouseover="changeColor('green')" onmouseout="resetColor()"></div>
+    </div>
+
+</body>
+
+</html>

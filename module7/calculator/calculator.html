@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .inputCalc {
+            width: 100%;
+            height: 100%;
+            color: red;
+        }
+
+        h2 {
+            color: green;
+        }
+    </style>
+    <script>
+        function display(value) {
+            document.getElementById('result').value += value;
+        };
+
+        function clearResult() {
+            document.getElementById('result').value = '';
+        };
+
+        function calc() {
+            const resultElem = document.getElementById('result');
+            const resultText = resultElem.value;
+            const result = eval(resultText);
+            resultElem.value = result ? result : 0
+        }
+    </script>
+</head>
+
+<body>
+    <h2>My Calculator</h2>
+
+    <table border="1">
+        <tr>
+            <td colspan="3">
+                <input type='text' id="result">
+            </td>
+            <td> <input type='button' value='C' class="inputCalc" onClick="clearResult()" /></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="1" class="inputCalc" onClick="display('1')" />
+            </td>
+            <td>
+                <input type="button" value="2" class="inputCalc" onClick="display('2')" />
+            </td>
+            <td>
+                <input type="button" value="3" class="inputCalc" onClick="display('3')" />
+            </td>
+            <td>
+                <input type="button" value="/" class="inputCalc" onClick="display('/')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="4" class="inputCalc" onClick="display('4')" />
+            </td>
+            <td>
+                <input type="button" value="5" class="inputCalc" onClick="display('5')" />
+            </td>
+            <td>
+                <input type="button" value="6" class="inputCalc" onClick="display('6')" />
+            </td>
+            <td>
+                <input type="button" value="-" class="inputCalc" onClick="display('-')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="7" class="inputCalc" onClick="display('7')" />
+            </td>
+            <td>
+                <input type="button" value="8" class="inputCalc" onClick="display('8')" />
+            </td>
+            <td>
+                <input type="button" value="9" class="inputCalc" onClick="display('9')" />
+            </td>
+            <td>
+                <input type="button" value="+" class="inputCalc" onClick="display('+')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="." class="inputCalc" onClick="display('.')" />
+            </td>
+            <td>
+                <input type="button" value="0" class="inputCalc" onClick="display('0')" />
+            </td>
+            <td>
+                <input type="button" value="=" class="inputCalc" onClick="calc()" />
+            </td>
+            <td>
+                <input type="button" value="*" class="inputCalc" onClick="display('*')" />
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Calculator</title>
+    <style>
+        .inputCalc {
+            width: 100%;
+            height: 100%;
+        }
+
+        .inputMc {
+            width: 100%;
+            height: 100%;
+            border: 2px solid blue;
+        }
+
+        .inputMath {
+            width: 100%;
+            height: 100%;
+            background-color: green;
+            color: white;
+            border: 1px solid black;
+        }
+
+        .memoryContainer {
+            margin-top: 1rem;
+        }
+
+        h2 {
+            color: green;
+        }
+    </style>
+    <script>
+        function display(value) {
+            document.getElementById('result').value += value;
+        }
+
+        function displayPi() {
+
+            document.getElementById('result').value = Math.PI;
+        }
+
+        function clearResult() {
+            document.getElementById('result').value = '';
+        }
+
+        function calc(value) {
+            const resultElem = document.getElementById('result');
+            const resultText = resultElem.value;
+            let result;
+            if (!resultText || resultText === 'Error') {
+                return;
+            }
+            switch (value) {
+                case 'sqrt':
+                    result = Math.sqrt(resultText);
+                    break;
+                case 'log':
+                    result = Math.log(resultText);
+                    break;
+                default:
+                    result = safeEval(resultText);
+                    break;
+            }
+            resultElem.value = result ? result : 'Error'
+        }
+        // It is safer to use libraries, etc.
+        function safeEval(value) {
+            try {
+                return Function('"use strict";return (' + value + ')')();
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function backspace() {
+            const resultElem = document.getElementById('result');
+            resultElem.value = resultElem.value.slice(0, -1);
+        }
+
+        function mP() {
+            const resultElem = document.getElementById('result');
+            if (resultElem.value.includes('Error')) {
+                return;
+            }
+            document.getElementById("memory").value = resultElem.value;
+        }
+
+        function mC() {
+            document.getElementById("memory").value = '';
+
+        }
+
+        function mR() {
+            const resultElem = document.getElementById('result');
+            if (resultElem.value.includes('Error')) {
+                return;
+            }
+            resultElem.value += document.getElementById("memory").value
+        }
+
+        function roundResult() {
+            const resultElem = document.getElementById('result');
+            resultElem.value = Math.round(resultElem.value);
+        }
+    </script>
+</head>
+
+<body>
+    <h2>My Calculator</h2>
+
+    <table border="1">
+        <tr>
+            <td colspan="3">
+                <input type='text' id="result">
+            </td>
+            <td> <input type='button' value='c' class="inputCalc" onClick="clearResult()" /></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="<" class="inputCalc" onClick="backspace()" />
+            </td>
+            <td>
+                <input type="button" value="M+" class="inputCalc" onClick="mP()" />
+            </td>
+            <td>
+                <input type="button" value="MC" class="inputMc" onClick="mC()" />
+            </td>
+            <td>
+                <input type="button" value="MR" class="inputCalc" onClick="mR()" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="1" class="inputCalc" onClick="display('1')" />
+            </td>
+            <td>
+                <input type="button" value="2" class="inputCalc" onClick="display('2')" />
+            </td>
+            <td>
+                <input type="button" value="3" class="inputCalc" onClick="display('3')" />
+            </td>
+            <td>
+                <input type="button" value="+" class="inputCalc" onClick="display('+')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="4" class="inputCalc" onClick="display('4')" />
+            </td>
+            <td>
+                <input type="button" value="5" class="inputCalc" onClick="display('5')" />
+            </td>
+            <td>
+                <input type="button" value="6" class="inputCalc" onClick="display('6')" />
+            </td>
+            <td>
+                <input type="button" value="-" class="inputCalc" onClick="display('-')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="7" class="inputCalc" onClick="display('7')" />
+            </td>
+            <td>
+                <input type="button" value="8" class="inputCalc" onClick="display('8')" />
+            </td>
+            <td>
+                <input type="button" value="9" class="inputCalc" onClick="display('9')" />
+            </td>
+            <td>
+                <input type="button" value="*" class="inputCalc" onClick="display('*')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="SQRT" class="inputMath" onClick="calc('sqrt')" />
+            </td>
+            <td>
+                <input type="button" value="PI" class="inputMath" onClick="displayPi()" />
+            </td>
+            <td>
+                <input type="button" value="round" class="inputMath" onClick="roundResult()" />
+            </td>
+            <td>
+                <input type="button" value="log(x)" class="inputMath" onClick="calc('log')" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" value="." class="inputCalc" onClick="display('.')" />
+            </td>
+            <td>
+                <input type="button" value="0" class="inputCalc" onClick="display('0')" />
+            </td>
+            <td>
+                <input type="button" value="=" class="inputCalc" onClick="calc()" />
+            </td>
+            <td>
+                <input type="button" value="/" class="inputCalc" onClick="display('/')" />
+            </td>
+        </tr>
+    </table>
+    <div class="memoryContainer">
+        <label for="memory">Memory</label>
+        <input type="text" id="memory" disabled />
+    </div>
+
+</body>
+
+</html>

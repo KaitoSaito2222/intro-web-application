@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercise1</title>
+    <script>
+        function calculateGrade(event) {
+            event.preventDefault();
+            const yourName = document.forms["myForm"]["yourName"].value;
+            const test1 = document.forms["myForm"]["test1"].value || 0;
+            const test2 = document.forms["myForm"]["test2"].value || 0;
+            const midterm = document.forms["myForm"]["midterm"].value || 0;
+            const final = document.forms["myForm"]["final"].value || 0;
+
+            if (yourName == "") {
+                alert("Please enter your name");
+                return false;
+            }
+
+            var average = (parseInt(test1) + parseInt(test2) + parseInt(midterm) + parseInt(final)) / 4;
+            if (average >= 60) {
+                const successMessage = document.getElementById("successMessage");
+                successMessage.style.visibility = "visible";
+                successMessage.textContent = `Congratulations ${yourName}, you pass ${average} exercise1 course`;
+            } else {
+                const errorMessage = document.getElementById("errorMessage")
+                errorMessage.style.visibility = "visible";
+                errorMessage.textContent = `Sorry ${yourName}, you did not pass ${average} exercise1 course`;
+            }
+            document.forms["myForm"]["averageGrade"].value = average;
+
+        }
+    </script>
+    <style>
+        div {
+            margin: 0;
+        }
+
+        .formLabel {
+            display: inline-block;
+            width: 80px;
+        }
+
+        .score {
+            width: 40px;
+        }
+
+        .submitContainer {
+            margin: 10px;
+        }
+
+        #successMessage,
+        #errorMessage {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="myForm" onsubmit="calculateGrade(event)">
+        <div>
+            <label for="yourName">Enter your name</label>
+            <input type="text" id="yourName">
+        </div>
+        <p>Enter your marks:</p>
+        <div>
+            <label for="test1" class="formLabel">Test1</label>
+            <input type="number" id="test1" name="test1" class="score">
+        </div>
+        <div>
+            <label for="test2" class="formLabel">Test2</label>
+            <input type="number" id="test2" name="test2" class="score">
+        </div>
+        <div>
+            <label for="midterm" class="formLabel">Midterm</label>
+            <input type="number" id="midterm" name="midterm" class="score">
+        </div>
+        <div>
+            <label for="final" class="formLabel">Final</label>
+            <input type="number" id="final" name="final" class="score">
+        </div>
+        <div class="submitContainer">
+            <input type="submit" value="Check your grade">
+            <input type="number" step="0.01" id="averageGrade" class="score">
+        </div>
+    </form>
+
+    <p id="successMessage"></p>
+    <p id="errorMessage"></p>
+
+</body>
+
+</html>
